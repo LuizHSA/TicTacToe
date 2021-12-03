@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+:root{
+    --square-size:150px;
+}
+
+.board{
+    display: grid;
+    grid-gap: 10px 10px;
+    grid-template-columns: auto auto auto;
+    background-color: aquamarine;
+    padding: 10px;
+    border-radius: 10px;
+    border: rgb(13, 109, 77) solid 3px;
+    margin: 100px auto;
+    height: fit-content;
+    width: fit-content;
+}
+
+.square{
+    background-color: rgb(118, 25, 240);
+    border-radius: 10px;
+    text-align: center;
+    line-height: var(--square-size);
+    font-size: 4rem;
+    height: var(--square-size);
+    width: var(--square-size);
+
+}
