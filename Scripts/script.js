@@ -1,9 +1,13 @@
 
 const game = document.querySelector(".game");
-const body = document.querySelector("body")
-let board = ["","","","","","","","","",]
+const playerScoreX = document.querySelector(".player-pointsX");
+const playerScoreO = document.querySelector(".player-pointsO");
+const gameOverScreen = document.querySelector(".game-over")
 const symbols = ["X","O"];
-let zeroAndOne = 0
+let board = ["","","","","","","","","",];
+let zeroAndOne = 0;
+let Xpoints = 0;
+let Opoints = 0;
 
 changeIndex = ()=>{
     zeroAndOne = zeroAndOne === 0 ? 1 : 0
@@ -17,7 +21,7 @@ makeAplay = (squareNumber)=>{
         board[squareNumber] = symbols[zeroAndOne]
         AttBoard()
         changeIndex()
-        IsAWin()
+        winSequences()
     }
 }
 
@@ -25,11 +29,22 @@ AttBoard = ()=>{
     game.innerHTML = ""
     for(let i = 0; i < 9; i++){
         game.innerHTML +=  `<div onclick="makeAplay(${i})" class="square square-${i}">${board[i]}</div>`
+        playerScoreX.innerHTML = `${Xpoints} points`
+        playerScoreO.innerHTML = `${Opoints} points`
     }
 
 }
 
-IsAWin =()=>{
+isWin = ()=>{
+    
+    changeIndex()
+    gameOverScreen.style.display = "flex"
+    const winnerText = document.querySelector(".winner-text")
+    winnerText.innerHTML = `O Jogador ${symbols[zeroAndOne]} venceu a partida! `
+    
+}
+
+winSequences =()=>{
     if(
         (board[0] == board[1] && board[0] == board[2]) && !(board[0] =="" ) ||
         (board[3] == board[4] && board[3] == board[5]) && !(board[3] =="" ) ||
@@ -41,7 +56,12 @@ IsAWin =()=>{
         (board[2] == board[4] && board[6] == board[2]) && !(board[2] =="" ) 
 
     ){
-        body.style.backgroundColor = "red"
+        changeIndex()
+        gameOverScreen.style.display = "flex"
+        const winnerText = document.querySelector(".winner-text")
+        winnerText.innerHTML = `O Jogador ${symbols[zeroAndOne]} venceu a partida! `
+        Xpoints++
+        Opoints++
     }
     
 }

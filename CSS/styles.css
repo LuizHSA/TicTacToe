@@ -42,6 +42,7 @@ html{
 }
 
 .game-wrapper{
+    gap: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -78,6 +79,10 @@ html{
 }
 
 .playerX, .playerO{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
     background-color: var(--color2);
     width: 200px;
     height: 300px;
