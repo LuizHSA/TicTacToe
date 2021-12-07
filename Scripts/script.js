@@ -3,11 +3,13 @@ const game = document.querySelector(".game");
 const playerScoreX = document.querySelector(".player-pointsX");
 const playerScoreO = document.querySelector(".player-pointsO");
 const gameOverScreen = document.querySelector(".game-over")
+const winnerText = document.querySelector(".winner-text")
 const symbols = ["X","O"];
 let board = ["","","","","","","","","",];
 let zeroAndOne = 0;
 let Xpoints = 0;
 let Opoints = 0;
+let playCounter = 0
 
 changeIndex = ()=>{
     zeroAndOne = zeroAndOne === 0 ? 1 : 0
@@ -21,7 +23,10 @@ makeAplay = (squareNumber)=>{
         board[squareNumber] = symbols[zeroAndOne]
         AttBoard()
         changeIndex()
+        playCounter++
         winSequences()
+        
+
     }
 }
 
@@ -39,8 +44,26 @@ isWin = ()=>{
     
     changeIndex()
     gameOverScreen.style.display = "flex"
-    const winnerText = document.querySelector(".winner-text")
     winnerText.innerHTML = `O Jogador ${symbols[zeroAndOne]} venceu a partida! `
+    if(zeroAndOne == 0){
+        Xpoints++
+    }else{
+        Opoints++
+    }
+
+    board = ["","","","","","","","","",]
+    playCounter = 0
+    AttBoard()
+    changeIndex()
+    
+}
+
+isDraw = ()=>{
+    playCounter = 0
+    gameOverScreen.style.display = "flex"
+    winnerText.innerHTML = "Deu velha"
+    board = ["","","","","","","","","",]
+    AttBoard()
     
 }
 
@@ -56,12 +79,13 @@ winSequences =()=>{
         (board[2] == board[4] && board[6] == board[2]) && !(board[2] =="" ) 
 
     ){
-        changeIndex()
-        gameOverScreen.style.display = "flex"
-        const winnerText = document.querySelector(".winner-text")
-        winnerText.innerHTML = `O Jogador ${symbols[zeroAndOne]} venceu a partida! `
-        Xpoints++
-        Opoints++
+        isWin()
     }
-    
+    else if (playCounter == 9){
+        isDraw()
+    }
+}
+
+playAgain = ()=>{
+    gameOverScreen.style.display = "none"
 }
